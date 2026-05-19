@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leonardo da Vinci — Curriculum Vitae</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1208;
+    --sepia: #5c3d1e;
+    --gold: #b8860b;
+    --gold-light: #d4a843;
+    --parchment: #f5eed8;
+    --parchment-dark: #e8dfc0;
+    --parchment-mid: #ede4c8;
+    --cream: #faf6ec;
+    --rust: #8b3a2a;
+    --muted: #7a6a50;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes lineGrow {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.7; }
+    50%       { opacity: 1; }
+  }
+
+  body {
+    background-color: #2b220f;
+    background-image:
+      radial-gradient(ellipse at 20% 20%, rgba(184,134,11,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(139,58,42,0.06) 0%, transparent 55%);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 3rem 1.5rem;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    background: var(--parchment);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"),
+      linear-gradient(160deg, var(--cream) 0%, var(--parchment) 40%, var(--parchment-dark) 100%);
+    box-shadow:
+      0 0 0 1px rgba(92,61,30,0.25),
+      0 4px 8px rgba(0,0,0,0.35),
+      0 20px 60px rgba(0,0,0,0.5),
+      inset 0 0 80px rgba(92,61,30,0.06);
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  /* Decorative corner borders */
+  .page::before, .page::after {
+    content: '';
+    position: absolute;
+    width: 80px; height: 80px;
+    border-color: var(--gold);
+    border-style: solid;
+    opacity: 0.45;
+    pointer-events: none;
+  }
+  .page::before {
+    top: 20px; left: 20px;
+    border-width: 2px 0 0 2px;
+  }
+  .page::after {
+    bottom: 20px; right: 20px;
+    border-width: 0 2px 2px 0;
+  }
+
+  /* Inner corner accents */
+  .corner-br, .corner-tl-inner {
+    position: absolute;
+    width: 80px; height: 80px;
+    border-color: var(--gold);
+    border-style: solid;
+    opacity: 0.45;
+    pointer-events: none;
+  }
+  .corner-br { bottom: 20px; left: 20px; border-width: 0 0 2px 2px; }
+  .corner-tl-inner { top: 20px; right: 20px; border-width: 2px 2px 0 0; }
+
+  /* ── HEADER ── */
+  .header {
+    padding: 3.5rem 3.5rem 2rem;
+    border-bottom: 1px solid rgba(92,61,30,0.2);
+    position: relative;
+  }
+
+  .header-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 2rem;
+  }
+
+  .name-block { animation: fadeUp 0.8s 0.1s ease both; }
+
+  .name-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: block;
+    animation: shimmer 4s ease infinite;
+  }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1;
+    letter-spacing: 0.03em;
+  }
+
+  .subtitle {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--sepia);
+    margin-top: 0.6rem;
+    letter-spacing: 0.02em;
+  }
+
+  .contact-block {
+    text-align: right;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .contact-block p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.8;
+    letter-spacing: 0.02em;
+  }
+
+  .contact-block a {
+    color: var(--sepia);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold-light);
+    transition: color 0.2s;
+  }
+  .contact-block a:hover { color: var(--gold); }
+
+  /* ── ORNAMENTAL DIVIDER ── */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.2rem 0;
+    padding: 0 3.5rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .ornament-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform-origin: left;
+    animation: lineGrow 1s 0.6s ease both;
+  }
+  .ornament-symbol {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--gold);
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    opacity: 0.85;
+  }
+
+  /* ── BODY LAYOUT ── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 0;
+  }
+
+  .main-col {
+    padding: 2rem 2.5rem 3rem 3.5rem;
+    border-right: 1px solid rgba(92,61,30,0.15);
+  }
+
+  .side-col {
+    padding: 2rem 2.5rem 3rem 2rem;
+    background: linear-gradient(180deg, rgba(92,61,30,0.04) 0%, transparent 100%);
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    margin-bottom: 2rem;
+    animation: fadeUp 0.7s ease both;
+  }
+  .section:nth-child(1) { animation-delay: 0.25s; }
+  .section:nth-child(2) { animation-delay: 0.35s; }
+  .section:nth-child(3) { animation-delay: 0.45s; }
+  .section:nth-child(4) { animation-delay: 0.55s; }
+
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.9rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid rgba(184,134,11,0.3);
+  }
+
+  /* ── SUMMARY ── */
+  .summary p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--sepia);
+    font-style: italic;
+    font-family: 'IM Fell English', serif;
+  }
+
+  /* ── EXPERIENCE ENTRIES ── */
+  .entry { margin-bottom: 1.6rem; }
+
+  .entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .entry-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+
+  .entry-date {
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    font-style: italic;
+  }
+
+  .entry-org {
+    font-size: 0.82rem;
+    color: var(--rust);
+    margin-bottom: 0.45rem;
+    font-style: italic;
+  }
+
+  .entry ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .entry ul li {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--ink);
+    padding-left: 1.1em;
+    position: relative;
+    margin-bottom: 0.2rem;
+  }
+
+  .entry ul li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.45em;
+    top: 0.45em;
+  }
+
+  /* ── SIDEBAR SECTIONS ── */
+  .side-section {
+    margin-bottom: 1.8rem;
+    animation: fadeUp 0.7s ease both;
+  }
+  .side-section:nth-child(1) { animation-delay: 0.3s; }
+  .side-section:nth-child(2) { animation-delay: 0.4s; }
+  .side-section:nth-child(3) { animation-delay: 0.5s; }
+  .side-section:nth-child(4) { animation-delay: 0.6s; }
+
+  .skill-group { margin-bottom: 1rem; }
+
+  .skill-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    color: var(--sepia);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.05em;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.55rem;
+    border: 1px solid rgba(92,61,30,0.3);
+    color: var(--sepia);
+    background: rgba(255,255,255,0.35);
+    letter-spacing: 0.03em;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .tag:hover {
+    border-color: var(--gold);
+    background: rgba(184,134,11,0.08);
+    color: var(--ink);
+  }
+
+  .lang-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.45rem;
+    font-size: 0.83rem;
+    color: var(--ink);
+  }
+
+  .lang-level {
+    font-size: 0.68rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .lang-dots {
+    display: flex; gap: 3px;
+  }
+
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--parchment-dark);
+    border: 1px solid rgba(92,61,30,0.25);
+    transition: background 0.2s;
+  }
+  .dot.filled { background: var(--gold); border-color: var(--gold); }
+
+  .edu-entry { margin-bottom: 0.9rem; }
+  .edu-title { font-size: 0.83rem; color: var(--ink); font-weight: 600; }
+  .edu-place { font-size: 0.75rem; color: var(--muted); font-style: italic; }
+  .edu-year  { font-size: 0.72rem; color: var(--gold); margin-top: 0.1rem; }
+
+  .award-item {
+    font-size: 0.8rem;
+    color: var(--sepia);
+    padding: 0.25rem 0;
+    border-bottom: 1px dashed rgba(92,61,30,0.15);
+    line-height: 1.4;
+  }
+  .award-item:last-child { border-bottom: none; }
+  .award-year {
+    font-size: 0.68rem;
+    color: var(--muted);
+    display: block;
+    margin-top: 0.05rem;
+    font-style: italic;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 1.2rem 3.5rem;
+    border-top: 1px solid rgba(92,61,30,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeUp 0.7s 0.7s ease both;
+  }
+  .footer-quote {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.5;
+  }
+  .footer-mark {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    opacity: 0.7;
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .page { box-shadow: none; }
+    * { animation: none !important; }
+  }
+
+  @media (max-width: 640px) {
+    .body { grid-template-columns: 1fr; }
+    .main-col { border-right: none; border-bottom: 1px solid rgba(92,61,30,0.15); }
+    .header { padding: 2rem 1.5rem 1.5rem; }
+    .header-grid { grid-template-columns: 1fr; }
+    .contact-block { text-align: left; }
+    .main-col, .side-col { padding: 1.5rem; }
+    .ornament { padding: 0 1.5rem; }
+    .footer { flex-direction: column; gap: 0.8rem; text-align: center; padding: 1.2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="corner-br"></div>
+  <div class="corner-tl-inner"></div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-grid">
+      <div class="name-block">
+        <span class="name-label">Curriculum Vitae</span>
+        <h1>Leonardo da Vinci</h1>
+        <p class="subtitle">Painter · Sculptor · Engineer · Anatomist · Philosopher of Nature</p>
+      </div>
+      <div class="contact-block">
+        <p>Vinci, Republic of Florence</p>
+        <p>Milan · Rome · Amboise</p>
+        <p>Available for commissions &amp; court appointments</p>
+        <p><a href="#">leonardo@bottega-vinci.it</a></p>
+        <p style="margin-top:0.4rem; font-size:0.75rem; color:var(--gold);">Est. 1452</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <span class="ornament-symbol">✦</span>
+    <div class="ornament-line"></div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- MAIN COLUMN -->
+    <main class="main-col">
+
+      <!-- SUMMARY -->
+      <section class="section summary">
+        <div class="section-title">Profile</div>
+        <p>
+          Polymath with five decades of experience across painting, engineering, anatomy,
+          hydraulics, and natural philosophy. Known for a restless curiosity that unifies
+          art and science, with a portfolio spanning altarpieces, flying machines, urban
+          infrastructure, and the most studied portrait in human history.
+          Fluent in observation; equally comfortable with a quill and a chisel.
+        </p>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section class="section">
+        <div class="section-title">Experience</div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">First Painter, Engineer & Architect to the King</span>
+            <span class="entry-date">1516 – 1519</span>
+          </div>
+          <div class="entry-org">Court of Francis I — Château du Clos Lucé, Amboise, France</div>
+          <ul>
+            <li>Served as chief creative advisor to Francis I, producing designs for royal pageants, canal systems, and an ambitious planned city at Romorantin.</li>
+            <li>Continued anatomical studies and compiled notebooks on optics, geology, and hydrology.</li>
+            <li>Delivered <em>St. John the Baptist</em> and completed final revisions to <em>St. Anne</em>.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">Painter & Military Engineer</span>
+            <span class="entry-date">1502 – 1506</span>
+          </div>
+          <div class="entry-org">Cesare Borgia / Republic of Florence / Charles d'Amboise — Central Italy</div>
+          <ul>
+            <li>Mapped towns, fortifications, and river systems across Romagna for Cesare Borgia's military campaigns.</li>
+            <li>Commenced <em>Mona Lisa</em> and <em>The Battle of Anghiari</em> (Palazzo della Signoria mural).</li>
+            <li>Proposed and partially surveyed a canal to divert the Arno River around Pisa.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">Court Artist & Engineer</span>
+            <span class="entry-date">1482 – 1499</span>
+          </div>
+          <div class="entry-org">Ludovico Sforza "il Moro" — Duchy of Milan</div>
+          <ul>
+            <li>Designed festival sets, court pageants, and hydraulic systems for the Navigli canal network.</li>
+            <li>Produced <em>The Virgin of the Rocks</em>, <em>Lady with an Ermine</em>, and <em>La Belle Ferronnière</em>.</li>
+            <li>Completed <em>The Last Supper</em> (Santa Maria delle Grazie) — considered the defining work of narrative fresco composition.</li>
+            <li>Developed 200+ pages of designs for an equestrian bronze monument to Francesco Sforza; produced a 24-ft clay model destroyed in 1499.</li>
+            <li>Drafted early concepts for a solar-powered reflector, a helicopter-like aerial screw, and a tank.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">Painter & Sculptor (Junior → Independent)</span>
+            <span class="entry-date">1466 – 1482</span>
+          </div>
+          <div class="entry-org">Bottega of Andrea del Verrocchio — Florence, Republic of Florence</div>
+          <ul>
+            <li>Trained under Verrocchio in painting, sculpture, metalworking, and technical drawing.</li>
+            <li>Contributed the left-hand angel in <em>Baptism of Christ</em>; Verrocchio reportedly retired from painting upon seeing it.</li>
+            <li>Admitted to the Guild of Saint Luke (1472); accepted first independent commission, <em>Adoration of the Magi</em> (unfinished, 1481).</li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="side-col">
+
+      <!-- SKILLS -->
+      <div class="side-section">
+        <div class="section-title">Core Disciplines</div>
+
+        <div class="skill-group">
+          <div class="skill-label">Visual Arts</div>
+          <div class="skill-tags">
+            <span class="tag">Oil Painting</span>
+            <span class="tag">Fresco</span>
+            <span class="tag">Silverpoint</span>
+            <span class="tag">Chiaroscuro</span>
+            <span class="tag">Sfumato</span>
+            <span class="tag">Sculpture</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-label">Engineering & Science</div>
+          <div class="skill-tags">
+            <span class="tag">Hydraulics</span>
+            <span class="tag">Military Fortification</span>
+            <span class="tag">Aeronautics</span>
+            <span class="tag">Optics</span>
+            <span class="tag">Mechanics</span>
+            <span class="tag">Cartography</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-label">Natural Philosophy</div>
+          <div class="skill-tags">
+            <span class="tag">Human Anatomy</span>
+            <span class="tag">Botany</span>
+            <span class="tag">Geology</span>
+            <span class="tag">Mathematics</span>
+            <span class="tag">Acoustics</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- LANGUAGES -->
+      <div class="side-section">
+        <div class="section-title">Languages</div>
+
+        <div class="lang-item">
+          <div>
+            <div>Italian (Tuscan)</div>
+            <div class="lang-level">Native — left-handed mirror script</div>
+          </div>
+          <div class="lang-dots">
+            <div class="dot filled"></div><div class="dot filled"></div>
+            <div class="dot filled"></div><div class="dot filled"></div>
+            <div class="dot filled"></div>
+          </div>
+        </div>
+
+        <div class="lang-item">
+          <div>
+            <div>Latin</div>
+            <div class="lang-level">Professional — self-taught</div>
+          </div>
+          <div class="lang-dots">
+            <div class="dot filled"></div><div class="dot filled"></div>
+            <div class="dot filled"></div><div class="dot filled"></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+
+        <div class="lang-item">
+          <div>
+            <div>French</div>
+            <div class="lang-level">Working proficiency</div>
+          </div>
+          <div class="lang-dots">
+            <div class="dot filled"></div><div class="dot filled"></div>
+            <div class="dot filled"></div><div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EDUCATION -->
+      <div class="side-section">
+        <div class="section-title">Education</div>
+
+        <div class="edu-entry">
+          <div class="edu-title">Apprenticeship in Fine Arts & Engineering</div>
+          <div class="edu-place">Bottega di Verrocchio, Florence</div>
+          <div class="edu-year">1466 – 1472</div>
+        </div>
+
+        <div class="edu-entry">
+          <div class="edu-title">Guild of Saint Luke</div>
+          <div class="edu-place">Compagnia di San Luca, Florence</div>
+          <div class="edu-year">Registered 1472</div>
+        </div>
+
+        <div class="edu-entry">
+          <div class="edu-title">Independent Studies</div>
+          <div class="edu-place">Anatomy (30+ cadavers), Mathematics, Optics, Natural History</div>
+          <div class="edu-year">1480 – 1519 (ongoing)</div>
+        </div>
+      </div>
+
+      <!-- AWARDS -->
+      <div class="side-section">
+        <div class="section-title">Notable Works</div>
+
+        <div class="award-item">
+          Mona Lisa <em>(La Gioconda)</em>
+          <span class="award-year">c. 1503–1517 · Oil on poplar panel</span>
+        </div>
+        <div class="award-item">
+          The Last Supper
+          <span class="award-year">1495–1498 · Tempera on gesso, pitch, mastic</span>
+        </div>
+        <div class="award-item">
+          Vitruvian Man
+          <span class="award-year">c. 1490 · Ink on paper</span>
+        </div>
+        <div class="award-item">
+          The Virgin of the Rocks
+          <span class="award-year">1483–1486 · Oil on panel</span>
+        </div>
+        <div class="award-item">
+          Codex Leicester (72 pp. on geology & water)
+          <span class="award-year">c. 1506–1510</span>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p class="footer-quote">
+      "Learning never exhausts the mind." — Leonardo da Vinci
+    </p>
+    <span class="footer-mark">VINCI · MDLII</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
